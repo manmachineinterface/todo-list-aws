@@ -17,7 +17,7 @@ pipeline {
                 git branch: 'develop',
                     changelog: false,
                     poll: false,
-                    url: 'https://github.com/${REPOSITORY}'
+                    url: 'https://github.com/'${REPOSITORY}
             }
         }
 
