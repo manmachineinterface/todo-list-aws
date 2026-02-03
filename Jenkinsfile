@@ -27,7 +27,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
-                        /usr/bin/flake8 --exit-zero --format=pylint src > flake8.out
+                        flake8 --exit-zero --format=pylint src > flake8.out
                     '''
 
                     recordIssues tools: [flake8(name:'Flake8', pattern: 'flake8.out')]
