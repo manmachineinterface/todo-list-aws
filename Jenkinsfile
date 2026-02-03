@@ -27,7 +27,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
-                        /usr/bin/flake8 --exit-zero --format=pylint src > flake8.out
+                        flake8 --exit-zero --format=pylint src > flake8.out
                     '''
 
                     recordIssues tools: [flake8(name:'Flake8', pattern: 'flake8.out')]
@@ -49,6 +49,18 @@ pipeline {
                     sam build
                     sam deploy --no-fail-on-empty-changeset --no-confirm-changeset --config-env ${ENVIRONMENT}
                 '''
+            }
+        }
+
+        stage('Rest Test') {
+            steps {
+                catchError(buildResult: 'ABORTED', stageResult: 'FAILURE') {
+                    sh '''
+                        export BASE_URL=$(aws cloudformation describe-stacks --stack-name todo-list-aws-production --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text)
+                        pytest --junitxml=result-rest.xml test//integration//todoApiTest.py || exit
+                    '''
+                    junit testResults: 'result-rest.xml', allowEmptyResults: false, skipPublishingChecks: true
+                }
             }
         }
 
