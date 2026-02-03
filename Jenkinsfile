@@ -10,12 +10,13 @@ pipeline {
         TOKEN = credentials('classic-access-token')
         REPOSITORY = 'manmachineinterface/todo-list-aws.git'
         ENVIRONMENT = 'production'
+        BRANCH = 'master'
     }
 
     stages {
         stage('Get Code') {
             steps {
-                git branch: 'develop',
+                git branch: "$BRANCH",
                     changelog: false,
                     poll: false,
                     url: "https://github.com/${REPOSITORY}"
