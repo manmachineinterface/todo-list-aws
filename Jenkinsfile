@@ -67,9 +67,14 @@ pipeline {
         stage('Promote') {
             steps {
                 sh '''
+                    git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
                     git switch master
                     git merge --strategy-option=ours develop
-                    git push https://${TOKEN}@github.com/${REPOSITORY} master
+                    git push origin master
+                    git switch develop
+                    git pull origin develop
+                    git merge master
+                    git push origin develop
                 '''
             }
         }
