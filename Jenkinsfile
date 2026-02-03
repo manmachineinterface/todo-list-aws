@@ -73,7 +73,7 @@ pipeline {
                     git push origin master
                     git switch develop
                     git pull origin develop
-                    git merge master
+                    git merge --strategy-option=ours master
                     git push origin develop
                 '''
             }
