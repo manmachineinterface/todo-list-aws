@@ -68,12 +68,13 @@ pipeline {
             steps {
                 sh '''
                     git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
+                    git config merge.ours.driver true
                     git switch master
-                    git merge --strategy-option=ours develop
+                    git merge develop
                     git push origin master
                     git switch develop
                     git pull origin develop
-                    git merge --strategy-option=ours master
+                    git merge master
                     git push origin develop
                 '''
             }
