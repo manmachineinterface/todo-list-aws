@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh '''
                     git switch master
-                    git merge develop
+                    git merge --strategy-option=ours develop
                     git push https://${TOKEN}@github.com/${REPOSITORY} master
                 '''
             }
