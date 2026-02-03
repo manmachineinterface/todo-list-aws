@@ -9,6 +9,7 @@ pipeline {
     environment {
         TOKEN = credentials('classic-access-token')
         REPOSITORY = 'manmachineinterface/todo-list-aws.git'
+        ENVIRONMENT = 'production'
     }
 
     stages {
@@ -25,17 +26,7 @@ pipeline {
             steps {
                 sh '''
                     sam build
-                    sam deploy --no-fail-on-empty-changeset --no-confirm-changeset --config-env staging
-                '''
-            }
-        }
-
-        stage('Promote') {
-            steps {
-                sh '''
-                    git switch master
-                    git merge develop
-                    git push https://${TOKEN}@github.com/${REPOSITORY} master
+                    sam deploy --no-fail-on-empty-changeset --no-confirm-changeset --config-env ${ENVIRONMENT}
                 '''
             }
         }
