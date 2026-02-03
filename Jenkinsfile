@@ -37,7 +37,7 @@ pipeline {
                 catchError(buildResult: 'ABORTED', stageResult: 'FAILURE') {
                     sh '''
                         export BASE_URL=$(aws cloudformation describe-stacks --stack-name todo-list-aws-production --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text)
-                        pytest --junitxml=result-rest.xml -k 'test_api_get and test_api_list' test/integration/todoApiTest.py || exit
+                        pytest --junitxml=result-rest.xml -k 'test_api_gettodo and test_api_listtodo' test/integration/todoApiTest.py || exit
                     '''
                     junit testResults: 'result-rest.xml', allowEmptyResults: false, skipPublishingChecks: true
                 }
