@@ -91,7 +91,8 @@ pipeline {
 
                     # Back-merge
                     git checkout develop
-                    git merge master -m "chore: sync branches [skip ci]"
+                    git pull origin develop
+                    git merge master -Xours -m "chore: sync branches [skip ci]"
                     git push origin develop
                 '''
             }
