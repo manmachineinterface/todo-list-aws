@@ -100,7 +100,8 @@ pipeline {
 
                     # Back-merge
                     git checkout develop
-                    git merge master -m "chore: sync branches [skip ci]"                                                                                                                                         git push origin develop
+                    git merge master -m "chore: sync branches [skip ci]"
+                    git push origin develop                                                                                                                                         git push origin develop
                 '''
             }
         }
