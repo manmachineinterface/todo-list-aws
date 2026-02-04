@@ -73,7 +73,7 @@ pipeline {
                     touch README.md
                     git add README.md
                     git commit -m "feat: dummy commit" || true
-                    git push
+                    git push --set-upstream origin develop
 
                     git switch master
                     git merge develop
