@@ -68,21 +68,21 @@ pipeline {
             steps {
                 sh '''
                     git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
+                    git config merge.ours.driver true
+
+                    git fetch origin master
+                    git fetch origin develop
 
                     git switch master
-                    git merge develop || true
-                    git checkout --ours Jenkinsfile
-                    git add Jenkinsfile
-                    git commit -m "feat: keep local Jenkinsfile" || true
-                    git push origin master
+                    git reset --hard origin/master
 
-                    git switch develop
-                    git pull origin develop
-                    git merge master || true
-                    git checkout --ours Jenkinsfile
+                    git merge origin/develop || true
+
+                    git checkout master -- Jenkinsfile
                     git add Jenkinsfile
-                    git commit -m "feat: keep local Jenkinsfile" || true
-                    git push origin develop
+                    git commit -m "Preserve Jenkinsfile" || true
+
+                    git push origin master
                 '''
             }
         }
