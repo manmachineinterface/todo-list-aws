@@ -70,14 +70,11 @@ pipeline {
                     git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
                     git config merge.ours.driver true
 
-                    touch README.md
-                    git add README.md
-                    git commit -m "feat: dummy commit" || true
-                    git push --set-upstream origin develop
-
-                    git switch master
-                    git merge develop
-                    git push
+                    git checkout master
+                    git merge develop --no-commit --no-ff
+                    git checkout HEAD -- Jenkinsfile
+                    git commit -m "feat: merge develop into master preserving Jenkinsfile"
+                    git push origin master
                 '''
             }
         }
