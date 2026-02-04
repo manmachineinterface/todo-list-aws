@@ -9,37 +9,17 @@ pipeline {
     environment {
         TOKEN = credentials('classic-access-token')
         REPOSITORY = 'manmachineinterface/todo-list-aws.git'
-        ENVIRONMENT = 'staging'
-        BRANCH = 'develop'
+        ENVIRONMENT = 'production'
+        BRANCH = 'master'
     }
 
     stages {
         stage('Get Code') {
             steps {
-                git branch: "${BRANCH}",
+                git branch: "$BRANCH",
                     changelog: false,
                     poll: false,
                     url: "https://github.com/${REPOSITORY}"
-            }
-        }
-
-        stage('Static test') {
-            steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh '''
-                        flake8 --exit-zero --format=pylint src > flake8.out
-                    '''
-
-                    recordIssues tools: [flake8(name:'Flake8', pattern: 'flake8.out')]
-                }
-
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh '''
-                        bandit -r ./src -f custom -o bandit.out --msg-template "{abspath}:{line}: [{test_id}] {msg}"
-                    '''
-
-                    recordIssues tools: [pyLint(name: 'Bandit', pattern: 'bandit.out')]
-                }
             }
         }
 
@@ -57,36 +37,11 @@ pipeline {
                 catchError(buildResult: 'ABORTED', stageResult: 'FAILURE') {
                     sh '''
                         export BASE_URL=$(aws cloudformation describe-stacks --stack-name todo-list-aws-production --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text)
-                        pytest --junitxml=result-rest.xml test/integration/todoApiTest.py || exit
+                        pytest --junitxml=result-rest.xml test/integration/todoApiTest.py::TestApi::test_api_listtodos \
+                        test/integration/todoApiTest.py::TestApi::test_api_gettodo || exit
                     '''
                     junit testResults: 'result-rest.xml', allowEmptyResults: false, skipPublishingChecks: true
                 }
-            }
-        }
-
-        stage('Promote') {
-            steps {
-                sh '''
-                    git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
-                    git config user.email "jenkins@example.com"
-                    git config user.name "Jenkins CI"
-
-                    git checkout develop
-                    git pull origin develop
-                    date > last_build.txt
-                    git add last_build.txt
-                    git commit -m "chore: build update [skip ci]" || echo "no changes"
-                    git push origin develop
-
-                    git checkout master
-                    git pull origin master
-                    git merge origin/develop -Xours -m "feat: merge develop into master"
-                    git push origin master
-
-                    git checkout develop
-                    git merge master --strategy=ours -m "chore: sync branches [skip ci]"
-                    git push origin develop
-                '''
             }
         }
     }
