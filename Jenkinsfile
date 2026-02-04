@@ -75,6 +75,32 @@ pipeline {
                     git checkout HEAD -- Jenkinsfile
                     git commit -m "feat: merge develop into master preserving Jenkinsfile"
                     git push origin master
+
+                    # Credentials and Identity configuration
+                    git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
+                    git config user.email "jenkins@todo-list-aws.com"
+                    git config user.name "Jenkins CI"
+
+                    # Set merge driver to "keep"
+                    git config merge.keep.driver true
+
+                    # Create a dummy commit
+                    git checkout develop
+                    git pull origin develop
+                    date > last_build.txt
+                    git add last_build.txt .gitattributes
+                    git commit -m "chore: update build timestamp [skip ci]" || echo "No changes"
+                    git push origin develop
+
+                    # Merge to master
+                    git checkout master
+                    git pull origin master
+                    git merge develop -m "feat: merge develop into master (protected by gitattributes)"
+                    git push origin master
+
+                    # Back-merge
+                    git checkout develop
+                    git merge master -m "chore: sync branches [skip ci]"                                                                                                                                         git push origin develop
                 '''
             }
         }
