@@ -70,6 +70,11 @@ pipeline {
                     git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
                     git config merge.ours.driver true
 
+                    touch README.md
+                    git add README.md
+                    git commit -m "feat: dummy commit" || true
+                    git push
+
                     git switch master
                     git merge develop --allow-empty -m 'feat: preserve Jenkinsfile'
                     git push
