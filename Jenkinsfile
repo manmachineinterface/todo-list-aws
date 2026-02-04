@@ -67,36 +67,24 @@ pipeline {
         stage('Promote') {
             steps {
                 sh '''
-                    # Credentials and Identity configuration
                     git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
                     git config user.email "jenkins@example.com"
                     git config user.name "Jenkins CI"
-                    git config merge.keep.driver true
-
-                    git checkout master
-                    git pull origin master
-
-                    cp Jenkinsfile Jenkinsfile.bak
-
-                    git merge origin/develop --no-edit || echo "detected conflicts, solving..."
-
-                    mv Jenkinsfile.bak Jenkinsfile
-                    git add Jenkinsfile
-
-                    git commit -m "feat: merge develop into master (manual Jenkinsfile protection)" || echo "no changes"
-                    git push origin master
 
                     git checkout develop
                     git pull origin develop
+                    date > last_build.txt
+                    git add last_build.txt
+                    git commit -m "chore: build update [skip ci]" || echo "no changes"
+                    git push origin develop
 
-                    cp Jenkinsfile Jenkinsfile.bak
+                    git checkout master
+                    git pull origin master
+                    git merge origin/develop -Xours -m "feat: merge develop into master"
+                    git push origin master
 
-                    git merge master --no-edit || echo "detected conflicts, solving..."
-
-                    mv Jenkinsfile.bak Jenkinsfile
-                    git add Jenkinsfile
-
-                    git commit -m "chore: sync with master (manual Jenkinsfile protection) [skip ci]" || echo "no changes"
+                    git checkout develop
+                    git merge master --strategy=ours -m "chore: sync branches [skip ci]"
                     git push origin develop
                 '''
             }
