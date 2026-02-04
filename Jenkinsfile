@@ -79,11 +79,13 @@ pipeline {
                     git push origin develop
 
                     git checkout master
-                    git pull origin master
-                    git merge origin/develop -Xours -m "feat: merge develop into master"
+                    git merge origin/develop --no-commit --no-ff || echo "conflict detected"
+                    git checkout HEAD -- Jenkinsfile
+                    git commit -m "feat: merge develop into master preserving Jenkinsfile" || echo "no changes"
                     git push origin master
 
                     git checkout develop
+                    git pull origin develop
                     git merge master --strategy=ours -m "chore: sync branches [skip ci]"
                     git push origin develop
                 '''
