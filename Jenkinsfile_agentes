@@ -60,6 +60,7 @@ pipeline {
         stage('Deploy') {
             agent {label 'agent1'}
             steps {
+                unstash name:'code'
                 sh '''
                     sam build
                     sam deploy --no-fail-on-empty-changeset --no-confirm-changeset --config-env ${ENVIRONMENT}
