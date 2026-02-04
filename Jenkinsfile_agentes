@@ -23,11 +23,6 @@ pipeline {
                     url: "https://github.com/${REPOSITORY}"
                 stash name:'code', includes:'**'
             }
-            post {
-                cleanup {
-                    cleanWs(deleteDirs: true, disableDeferredWipeout: true)
-                }
-            }
         }
 
         stage('Static test') {
