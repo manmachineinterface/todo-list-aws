@@ -71,7 +71,7 @@ pipeline {
                     git config merge.ours.driver true
 
                     git switch master
-                    git merge develop --allow-empty -m "feat: preserve Jenkinsfile"
+                    git merge develop --allow-empty -m 'feat: preserve Jenkinsfile'
                     git push
                 '''
             }
