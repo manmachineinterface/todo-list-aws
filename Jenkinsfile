@@ -70,12 +70,18 @@ pipeline {
                     git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
 
                     git switch master
-                    git merge -s recursive -X ours develop
+                    git merge develop || true
+                    git checkout --ours Jenkinsfile
+                    git add Jenkinsfile
+                    git commit -m "feat: keep local Jenkinsfile" || true
                     git push origin master
 
                     git switch develop
                     git pull origin develop
-                    git merge -s recursive -X ours master
+                    git merge master || true
+                    git checkout --ours Jenkinsfile
+                    git add Jenkinsfile
+                    git commit -m "feat: keep local Jenkinsfile" || true
                     git push origin develop
                 '''
             }
