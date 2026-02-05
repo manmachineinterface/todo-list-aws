@@ -1,3 +1,6 @@
+- Delete last_change.txt
+- Delete last_build.txt
+- Tracking update
 - Merge origin/develop (preserving master configs)
 - Tracking update
 - fix: edit CloudFormation name
