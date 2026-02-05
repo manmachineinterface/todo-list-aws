@@ -71,23 +71,18 @@ pipeline {
                     git config user.email "jenkins@example.com"
                     git config user.name "Jenkins CI"
 
-                    git checkout develop
-                    git pull origin develop
-                    date > last_build.txt
-                    git add last_build.txt
-                    git commit -m "chore: build update [skip ci]" || echo "no changes"
-                    git push origin develop
-
+                    git fetch origin master
                     git checkout master
-                    git merge origin/develop --no-commit --no-ff || echo "conflict detected"
-                    git checkout HEAD -- Jenkinsfile
-                    git commit -m "feat: merge develop into master preserving Jenkinsfile" || echo "no changes"
-                    git push origin master
 
-                    git checkout develop
-                    git pull origin develop
-                    git merge master --strategy=ours -m "chore: sync branches [skip ci]"
-                    git push origin develop
+                    cp Jenkinsfile Jenkinsfile.bak
+                    date > last_change.txt
+                    git add last_change.txt
+                    git commit -m "Tracking update" || true
+                    git merge origin/develop --no-commit --no-ff || echo "conflict detected"
+                    mv Jenkinsfile.bak Jenkinsfile
+                    git add Jenkinsfile
+                    git commit --amend --no-edit || git commit -m "Restore original Jenkinsfile"
+                    git push origin master
                 '''
             }
         }
