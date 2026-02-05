@@ -82,7 +82,8 @@ pipeline {
                     git merge origin/develop --no-commit --no-ff || echo "conflict detected"
 
                     git checkout HEAD -- Jenkinsfile
-                    git add Jenkinsfile
+                    git checkout HEAD -- Jenkinsfile_agentes
+                    git add Jenkinsfile Jenkinsfile_agentes
                     git commit -m "Merge origin/develop (preserving master configs)" || echo "no conflict detected"
 
                     #mv Jenkinsfile.bak Jenkinsfile
