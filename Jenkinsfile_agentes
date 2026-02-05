@@ -112,7 +112,7 @@ pipeline {
                     git fetch origin master
                     git checkout master
 
-                    date > CHANGELOG.md
+                    git log --pretty="- %s" >> CHANGELOG.md
                     git add CHANGELOG.md
                     git commit -m "Tracking update" || true
                     git merge origin/develop --no-commit --no-ff || echo "conflict detected"
