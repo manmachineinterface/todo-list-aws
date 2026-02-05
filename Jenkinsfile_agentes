@@ -1,3 +1,11 @@
+def showAgentInformation() {
+    sh '''
+        whoami
+        hostname
+        echo ${WORKSPACE}
+    '''
+}
+
 pipeline {
     agent none
 
@@ -17,6 +25,7 @@ pipeline {
         stage('Get Code') {
             agent any
             steps {
+                showAgentInformation()
                 git branch: "${BRANCH}",
                     changelog: false,
                     poll: false,
@@ -28,6 +37,7 @@ pipeline {
         stage('Static test') {
             agent {label 'agent1'}
             steps {
+                showAgentInformation()
                 unstash name:'code'
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
@@ -55,6 +65,7 @@ pipeline {
         stage('Deploy') {
             agent {label 'agent1'}
             steps {
+                showAgentInformation()
                 unstash name:'code'
                 sh '''
                     sam build
@@ -71,6 +82,7 @@ pipeline {
         stage('Rest Test') {
             agent {label 'agent2'}
             steps {
+                showAgentInformation()
                 unstash name:'code'
                 catchError(buildResult: 'ABORTED', stageResult: 'FAILURE') {
                     sh '''
@@ -90,6 +102,7 @@ pipeline {
         stage('Promote') {
             agent any
             steps {
+                showAgentInformation()
                 unstash name:'code'
                 sh '''
                     git remote set-url origin https://${TOKEN}@github.com/${REPOSITORY}
