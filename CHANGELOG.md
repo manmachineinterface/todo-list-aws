@@ -1,3 +1,6 @@
+- Merge origin/develop (preserving master configs)
+- Tracking update
+- Delete last_build.txt
 - Delete last_change.txt
 - Delete last_build.txt
 - Tracking update
