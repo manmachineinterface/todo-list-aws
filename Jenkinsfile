@@ -74,10 +74,8 @@ pipeline {
                     git fetch origin master
                     git checkout master
 
-                    #cp Jenkinsfile Jenkinsfile.bak
-
-                    date > last_change.txt
-                    git add last_change.txt
+                    date > CHANGELOG.md
+                    git add CHANGELOG.md
                     git commit -m "Tracking update" || true
                     git merge origin/develop --no-commit --no-ff || echo "conflict detected"
 
@@ -85,10 +83,6 @@ pipeline {
                     git checkout HEAD -- Jenkinsfile_agentes
                     git add Jenkinsfile Jenkinsfile_agentes
                     git commit -m "Merge origin/develop (preserving master configs)" || echo "no conflict detected"
-
-                    #mv Jenkinsfile.bak Jenkinsfile
-                    #git add Jenkinsfile
-                    #git commit --amend --no-edit || git commit -m "Restore original Jenkinsfile"
 
                     git push origin master
                 '''
