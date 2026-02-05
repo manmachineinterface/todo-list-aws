@@ -56,7 +56,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'ABORTED', stageResult: 'FAILURE') {
                     sh '''
-                        export BASE_URL=$(aws cloudformation describe-stacks --stack-name todo-list-aws-production --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text)
+                        export BASE_URL=$(aws cloudformation describe-stacks --stack-name todo-list-aws-staging --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text)
                         pytest --junitxml=result-rest.xml test/integration/todoApiTest.py || exit
                     '''
                     junit testResults: 'result-rest.xml', allowEmptyResults: false, skipPublishingChecks: true
