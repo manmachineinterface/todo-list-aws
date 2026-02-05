@@ -1,3 +1,6 @@
+- Merge origin/develop (preserving master configs)
+- Tracking update
+- fix: edit CloudFormation name
 - Tracking update
 - Merge origin/develop (preserving master configs)
 - Tracking update
