@@ -21,8 +21,7 @@ pipeline {
                     poll: false,
                     url: "https://github.com/${REPOSITORY}"
 
-                def rawURL = "https://raw.githubusercontent.com/manmachineinterface/repo/${ENVIRONMENT}/samconfig.toml"
-                sh "curl -L ${rawURL} -o samconfig.toml"
+                sh "curl -L https://raw.githubusercontent.com/manmachineinterface/repo/${ENVIRONMENT}/samconfig.toml -o samconfig.toml"
             }
         }
 
