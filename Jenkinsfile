@@ -21,7 +21,7 @@ pipeline {
                     poll: false,
                     url: "https://github.com/${REPOSITORY}"
 
-                sh "curl -L https://raw.githubusercontent.com/manmachineinterface/repo/${ENVIRONMENT}/samconfig.toml -o samconfig.toml"
+                sh "curl -f -L https://raw.githubusercontent.com/manmachineinterface/todo-list-aws-config/refs/heads/${ENVIRONMENT}/samconfig.toml -o samconfig.toml"
             }
         }
 
