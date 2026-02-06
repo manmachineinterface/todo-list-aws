@@ -1,3 +1,6 @@
+- Merge origin/develop (preserving master configs)
+- Tracking update
+- chore: delete samconfig.toml
 - chore: delete samconfig.toml
 - feat: add curl to get the configuration
 - Merge origin/develop (preserving master configs)
