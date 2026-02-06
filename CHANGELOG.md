@@ -1,3 +1,10 @@
+- chore: delete samconfig.toml
+- feat: add curl to get the configuration
+- Merge origin/develop (preserving master configs)
+- Tracking update
+- fix: change default excludes to include .git
+- feat: add configuration branch
+- feat: add configuration branch
 - Merge origin/develop (preserving master configs)
 - Tracking update
 - fix: correct curl address and add fail option
