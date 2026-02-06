@@ -32,7 +32,7 @@ pipeline {
                             changelog: false,
                             poll: false,
                             url: "https://github.com/${REPOSITORY}"
-                        stash name:'code', includes:'**'
+                        stash name:'code', includes:'**', useDefaultExcludes: false
                     }
 
                     dir('configuration') {
