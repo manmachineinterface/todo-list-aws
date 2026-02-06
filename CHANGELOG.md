@@ -1,3 +1,8 @@
+- Merge origin/develop (preserving master configs)
+- Tracking update
+- fix: correct curl address and add fail option
+- feat: use todo-list-aws-config
+- feat: use todo-list-aws-config
 - Tracking update
 - feat: add environment variable
 - Tracking update
