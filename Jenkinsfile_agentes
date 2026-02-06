@@ -75,6 +75,7 @@ pipeline {
             agent {label 'agent1'}
             steps {
                 showAgentInformation()
+                unstash name:'code'
                 unstash name:'configuration'
                 sh '''
                     sam build
