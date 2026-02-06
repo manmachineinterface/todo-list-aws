@@ -26,11 +26,20 @@ pipeline {
             agent any
             steps {
                 showAgentInformation()
-                git branch: "${BRANCH}",
-                    changelog: false,
-                    poll: false,
-                    url: "https://github.com/${REPOSITORY}"
-                stash name:'code', includes:'**'
+                script {
+                    dir('source-code') {
+                        git branch: "${BRANCH}",
+                            changelog: false,
+                            poll: false,
+                            url: "https://github.com/${REPOSITORY}"
+                        stash name:'code', includes:'**', useDefaultExcludes: false
+                    }
+
+                    dir('configuration') {
+                        sh "curl -f -L https://raw.githubusercontent.com/manmachineinterface/todo-list-aws-config/refs/heads/${ENVIRONMENT}/samconfig.toml -o samconfig.toml"
+                        stash name: 'configuration', includes: 'samconfig.toml'
+                    }
+                }
             }
         }
 
@@ -39,6 +48,7 @@ pipeline {
             steps {
                 showAgentInformation()
                 unstash name:'code'
+                unstash name:'configuration'
                 sh '''
                     sam build
                     sam deploy --no-fail-on-empty-changeset --no-confirm-changeset --config-env ${ENVIRONMENT}

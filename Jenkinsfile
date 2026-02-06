@@ -17,10 +17,12 @@ pipeline {
 
         stage('Get Code') {
             steps {
-                git branch: "$BRANCH",
+                git branch: "${BRANCH}",
                     changelog: false,
                     poll: false,
                     url: "https://github.com/${REPOSITORY}"
+
+                sh "curl -f -L https://raw.githubusercontent.com/manmachineinterface/todo-list-aws-config/refs/heads/${ENVIRONMENT}/samconfig.toml -o samconfig.toml"
             }
         }
 
