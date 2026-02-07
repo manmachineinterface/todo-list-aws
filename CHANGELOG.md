@@ -1,13 +1,134 @@
-# Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [1.0.0] - 2021-01-08
-### Added
-- Versión inicial de código.
-
-- Modify any file
-
-- Modify this file
+- feat: try a random push
+- feat: try a random push
+- feat: try a random push
+- chore: delete samconfig.toml
+- fix: change default excludes to include .git
+- feat: add configuration branch
+- feat: add configuration branch
+- fix: correct curl address and add fail option
+- feat: use todo-list-aws-config
+- feat: use todo-list-aws-config
+- feat: add environment variable
+- Delete last_build.txt
+- fix: edit CloudFormation name
+- fix: overwrite Changelog
+- feat: use CHANGELOG.md
+- feat: use CHANGELOG.md
+- feat: add agent information
+- fix: change Promote
+- fix: change Promote
+- fix: change Promote
+- fix: revert to merge ours
+- chore: sync branches [skip ci]
+- chore: build update [skip ci]
+- feat: merge develop into master preserving Jenkinsfile
+- fix: try another variation
+- fix: try another variation
+- chore: sync branches [skip ci]
+- feat: merge develop into master preserving Jenkinsfile
+- chore: build update [skip ci]
+- fix: modify keep=ours
+- fix: modify keep=ours
+- feat: merge develop into master preserving Jenkinsfile
+- chore: sync branches [skip ci]
+- chore: build update [skip ci]
+- fix: correct environment and branch
+- chore: sync branches [skip ci]
+- feat: merge develop into master preserving Jenkinsfile
+- chore: build update [skip ci]
+- fix: remove clean-up on the primary node
+- fix: add missing unstash for SAM
+- feat: add agent1 and agent2
+- feat: merge develop into master preserving Jenkinsfile
+- feat: add Jenkinsfile_agentes to .gitattributes
+- feat: merge develop into master preserving Jenkinsfile
+- chore: sync branches [skip ci]
+- chore: build update [skip ci]
+- chore: sync branches [skip ci]
+- feat: merge develop into master preserving Jenkinsfile
+- chore: build update [skip ci]
+- fix: try to protect Jenkinsfile
+- fix: restore Jenkinsfile
+- chore: build update [skip ci]
+- fix: try another merge strategy
+- chore: sync with master (manual Jenkinsfile protection) [skip ci]
+- feat: merge develop into master (manual Jenkinsfile protection)
+- fix: use a temporary copy of Jenkinsfile
+- feat: merge develop into master (protected by gitattributes)
+- chore: update build timestamp [skip ci]
+- fix: add strategy to merge
+- fix: restore Jenkinsfile
+- chore: update build timestamp [skip ci]
+- fix: remove dead code
+- feat: merge develop into master (protected by gitattributes)
+- chore: update build timestamp [skip ci]
+- feat: merge develop into master preserving Jenkinsfile
+- fix: restore develop Jenkinsfile
+- fix: set merge strategy
+- feat: merge develop into master (protected by gitattributes)
+- chore: update build timestamp [skip ci]
+- feat: merge develop into master preserving Jenkinsfile
+- fix: remove spaces
+- fix: correct tabulation
+- fix: try another merge strategy
+- feat: merge develop into master (protected by gitattributes)
+- chore: update build timestamp [skip ci]
+- feat: merge develop into master preserving Jenkinsfile
+- fix: try another merge strategy
+- feat: merge develop into master preserving Jenkinsfile
+- fix: try another merge strategy
+- Merge branch 'develop'
+- fix: modify git options
+- feat: ingnore test files
+- feat: remove unknown option
+- feat: add dummy commit
+- feat: allow empty merges
+- feat: allow empty merges
+- Merge branch 'develop'
+- fix: add final merge strategy
+- Merge remote-tracking branch 'origin/develop'
+- fix: add merge options
+- feat: keep local Jenkinsfile
+- fix: add merge options
+- Merge branch 'develop'
+- fix: add merge options
+- Merge branch 'develop'
+- fix: test
+- Merge branch 'develop'
+- fix: add merge strategy
+- Merge branch 'develop'
+- fix: merge to update the develop branch
+- fix: add test_api_gettodo check
+- fix: change test selection in pytest
+- fix: add full test names in pytest
+- fix: correct -k expression in pytest
+- feat: add rest test
+- Merge branch 'develop'
+- fix: modify path style in shell
+- Merge branch 'develop'
+- feat: add rest test stage
+- Merge branch 'develop'
+- fix: install bandit as apt package instead of a snap
+- Merge branch 'develop'
+- feat: add static tests
+- Merge branch 'develop'
+- feat: add branch as environment variable
+- fix: update Jenkinsfile
+- Merge branch 'develop'
+- feat: add git merge strategy option
+- fix: add a build environment variable
+- fix: update Jenkinsfile
+- fix: add --no-confirm-changeset to SAM deploy
+- fix: modify url string format
+- fix: modify url string format
+- feat: add Jenkinsfile
+- fix: customize SAM configuration file
+- fix: replace required python3 version
+- fix: correct dynamodb resource name
+- feat: protect Jenkinsfile from merges
+- Update todoList.py - Force error
+- Update requirements.txt - Force error in urllib
+- Update template.yaml - Update python to 3.10
+- Update requirements.txt
+- Update lambdas runtime version to python3.8
+- Initial Commit
